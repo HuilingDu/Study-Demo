@@ -52,3 +52,25 @@
 	** arcTo(x1, y1, x2, y2, radius)
 	根据给定的控制点和半径画一段圆弧，再以直线连接两个控制点。
 
+
+#### 5.用“宽度/高度技巧”清除画布
+
+	$canvas.attr({'width':$canvas.width()});
+	或
+	$canvas.attr({'height':$canvas.height()});
+	//$canvas是用jQuery获取的对象
+
+	var $canvas = $('#can_1');
+    var canvas = $canvas.get(0);
+
+	**缺点：会完全重置Canvas上的所以内容，包括样式和颜色
+
+#### 6.使Canvas填满浏览器窗口
+
+	var $can = $('#can_1');
+	var ctx = $can.get(0).getContext('2d');
+
+	$can.attr({
+		'width':$(window).get(0).innerWidth,
+		'height':$(window).get(0).innerHeight
+	});

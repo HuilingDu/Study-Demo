@@ -12,12 +12,14 @@
 
 <script type="text/javascript">
     $(function(){
-        var canvas = document.getElementById('can_1');
+        var $canvas = $('#can_1');
+        var canvas = $canvas.get(0);
         if(canvas.getContext) {
             console.log('支持canvas');
             var ctx = canvas.getContext('2d');
 
             //绘制矩形
+            ctx.fillStyle = "rgb(255,108,119)";
             ctx.fillRect(10,10,50,50);
             ctx.strokeRect(70,10,50,50);
             ctx.clearRect(20,20,20,20);
@@ -34,29 +36,45 @@
             ctx.stroke();
 
             //绘制圆
+            ctx.strokeStyle = "rgb(2,108,119)";
+            ctx.lineWidth = 3;
             ctx.beginPath();
-            ctx.arc(300,100,100,0,2*Math.PI);
+            ctx.arc(250,60,50,0,2*Math.PI);
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.arc(300,100,80,-Math.PI/2,Math.PI/2);
+            ctx.arc(250,60,40,-Math.PI/2,Math.PI/2);
             ctx.fill();
 
             ctx.beginPath();
             ctx.moveTo(10,100);             // 创建开始点
-            ctx.arcTo(100,100,100,150,120); // 创建弧,p1与起始点为一切线，p1与p2为一切线，radius为半径
+            ctx.arcTo(100,100,100,150,50); // 创建弧,p1与起始点为一切线，p1与p2为一切线，radius为半径
             ctx.stroke();
 
             // 二次贝尔赛曲线
             ctx.beginPath();
-            ctx.moveTo(75,25);
-            ctx.quadraticCurveTo(25,25,25,62.5);
-            ctx.quadraticCurveTo(25,100,50,100);
-            ctx.quadraticCurveTo(50,120,30,125);
-            ctx.quadraticCurveTo(60,120,65,100);
-            ctx.quadraticCurveTo(125,100,125,62.5);
-            ctx.quadraticCurveTo(125,25,75,25);
+            ctx.moveTo(60,200);
+            ctx.quadraticCurveTo(0,200,0,250);
+            ctx.quadraticCurveTo(0,300,60,300);
+            ctx.quadraticCurveTo(110,300,110,250);
+            ctx.quadraticCurveTo(110,200,60,200);
             ctx.stroke();
+
+            //绘制文字
+            var text = "Hello World!";
+            ctx.fillStyle = "rgb(255,0,0)";
+            ctx.font = "60px serif";
+            ctx.fillText(text,10,370);
+
+            ctx.strokeStyle = 'rgb(102,211,46)';
+            ctx.lineWidth = 1;
+            ctx.strokeText(text,10,370);
+
+            console.log($canvas.width());
+            setTimeout(function(){
+                $canvas.attr({'width':$canvas.width()});
+            },5000);
+
         } else {
             console.log('不支持canvas');
         }
