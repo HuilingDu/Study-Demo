@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            bottom: 0;
+        }
+    </style>
+    <script src="../js-common/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+    <button id="next">next</button>
+
+    <script type="text/javascript">
+        $(function(){
+            var $canvas = $('canvas');
+            var cvs = $canvas.get(0);
+            if(cvs.getContext){
+                var ctx = cvs.getContext('2d');
+
+                var play = true,
+                    $start = $('#start'),
+                    $stop = $('#stop');
+
+                var shape = function(x,y){
+                    this.x = x;
+                    this.y = y;
+                    this.radius = Math.random() * 50;
+                    this.angle = 0;
+
+                    this.rectX = 0;
+                    this.rectY = 0;
+                };
+                var shapes = new Array();
+                shapes[0] = new shape(150,150);
+                ctx.fillStyle = 'rgb(0,255,0)';
+                ctx.beginPath();
+                ctx.arc(shapes[0].x+2.5,shapes[0].y+2.5,5,-Math.PI,Math.PI);
+                ctx.fill();
+
+                $start.hide();
+                $start.click(function(){
+                    $(this).hide();
+                    $stop.show();
+                    play = true;
+                    animate();
+                });
+                $stop.click(function(){
+                    $(this).hide();
+                    $start.show();
+                    play = false;
+                });
+                $('#next').click(function(){
+                    animate();
+                });
+
+                function animate(){
+                    var temp = shapes[0];
+                    ctx.clearRect(temp.rectX - 1,temp.rectY - 1,7,7);
+
+                    var adjRatio = Math.cos(temp.angle * (Math.PI / 180));
+                    var oppRatio = Math.sin(temp.angle * (Math.PI / 180));
+
+                    var x = temp.radius * adjRatio + temp.x;
+                    var y = temp.radius * oppRatio + temp.y;
+                    shapes[0].rectX = x;
+                    shapes[0].rectY = y;
+
+                    ctx.fillStyle = 'rgb(255,0,0)';
+                    ctx.fillRect(x,y,5,5);
+                    temp.angle += 1;
+                    if(temp.angle > 360){
+                        temp.angle = 0;
+                    }
+                    if(play){
+                        setTimeout(animate,33);
+                    }
+                }
+                animate();
+            }
+        });
+    </script>
+</body>
+</html>

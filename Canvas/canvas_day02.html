@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>canvas练习-2</title>
+    <script src="../js-common/jquery-1.11.3.min.js"></script>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            bottom: 0;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="can_1" width="1000" height="500">您的浏览器不支持canvas，请更换浏览器以便获得更好体验！</canvas>
+</body>
+<script type="text/javascript">
+    $(function(){
+        var $canvas = $('#can_1');
+        $canvas.attr({'width':$(window).width(),'height':$(window).height()});
+        var cvs = $canvas.get(0);
+        if(cvs.getContext){
+            var ctx = cvs.getContext('2d');
+
+/*
+            ctx.fillStyle = "rgb(0,255,0)"; //绿色
+            ctx.save();                     //绿色入栈
+            ctx.fillRect(10,10,100,100);
+
+            ctx.fillStyle = "rgb(0,0,255)"; //蓝色
+            ctx.fillRect(130,10,100,100);
+
+            ctx.restore();                  //绿色出栈
+
+            ctx.save();                     //保存画布状态
+
+            ctx.translate(250,110);         //原点移动
+            ctx.scale(2,2);                 //缩放
+            ctx.fillRect(0,0,100,100);
+
+            ctx.restore();                  //回复画布状态，原点回到(0,0);
+            ctx.save();
+            ctx.translate(300,60);
+            ctx.rotate(Math.PI/4);          //旋转是以原点为中心
+            ctx.fillRect(-50,-50,100,100);
+
+//            ctx.restore();
+            ctx.setTransform(1,0,0,1,0,0);
+            ctx.transform(2,0,0,2,-10,250);     //transform矩阵
+            ctx.fillRect(-50,-50,100,100);
+*/
+
+            /**
+             * 变换矩阵，欠深入了解，暂放
+            ctx.setTransform(1,0,0,1,0,0);
+            var xScale = Math.cos(Math.PI / 4);
+            var ySkew = -Math.sin(Math.PI / 4);
+            var xSkew = Math.sin(Math.PI / 4);
+            var yScale = Math.cos(Math.PI / 4);
+            var xTrans = 200;
+            var yTrans = 200;
+            ctx.transform(xScale,ySkew,xSkew,yScale,xTrans,yTrans);
+            ctx.fillStyle = "rgb(255,0,0)";
+            ctx.globalAlpha = 0.3;
+            ctx.fillRect(-50,-50,100,100);
+             */
+
+            /* globalCompositeOperation
+            ctx.fillStyle = 'rgb(255,0,0)';
+            ctx.fillRect(0,0,100,100);
+            ctx.globalCompositeOperation = 'copy';
+            ctx.fillStyle = 'rgb(0,255,0)';
+            ctx.fillRect(50,50,100,100);
+            */
+
+            /* shadow
+             ctx.fillStyle = 'rgb(255,0,0)';
+             ctx.shadowBlur = 20;
+             ctx.shadowOffsetX = 20;
+             ctx.shadowOffsetY = 20;
+             ctx.shadowColor = 'rgb(111,0,0)';
+             ctx.fillRect(50,50,100,100);
+             */
+
+            /* gradient 渐变 */
+            var gradient = ctx.createLinearGradient(0,0,0,$canvas.height());
+            gradient.addColorStop(0,'rgb(0,255,0)');
+            gradient.addColorStop(1,'rgb(255,0,0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0,0,$canvas.width(),$canvas.height());
+
+            /* 保存图像 */
+            var dataUrl = cvs.toDataURL();
+            console.log(dataUrl);
+            $('body').append('<img src="'+dataUrl+'" style="position:absolute;right: 0;top:0;width: 200px;">');
+        }else{
+            alert("您的浏览器不支持canvas");
+        }
+    });
+</script>
+</html>
