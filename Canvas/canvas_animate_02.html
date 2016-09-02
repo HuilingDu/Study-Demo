@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画-2</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            bottom: 0;
+        }
+        canvas{
+            border: 1px solid #0a2442;
+        }
+    </style>
+    <script src="../js-common/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+    <button id="next">next</button>
+
+    <script type="text/javascript">
+        $(function(){
+            var $canvas = $('canvas');
+            var cvs = $canvas.get(0);
+            if(cvs.getContext){
+                var ctx = cvs.getContext('2d');
+
+                var cvs_width = $canvas.width(),
+                    cvs_height = $canvas.height(),
+
+                    play = true,
+                    $start = $('#start'),
+                    $stop = $('#stop');
+
+                $start.hide();
+                $start.click(function(){
+                    $(this).hide();
+                    $stop.show();
+                    play = true;
+                    animate();
+                });
+                $stop.click(function(){
+                    $(this).hide();
+                    $start.show();
+                    play = false;
+                });
+                $('#next').click(function(){
+                    animate();
+                });
+
+                var init = {
+                    x: Math.random() * cvs_width,
+                    y: Math.random() * cvs_height,
+                    moveX: Math.random() * 5 - 2.5,
+                    moveY: Math.random() * 5 - 2.5
+                }
+
+                function animate(){
+                    ctx.clearRect(0,0,cvs_width,cvs_height);
+
+                    var temp = init;
+                    temp.x += temp.moveX;
+                    temp.y += temp.moveY;
+                    if(temp.x > cvs_width - 5 || temp.x < 0){
+                        temp.moveX = - temp.moveX;
+                    }
+                    if(temp.y > cvs_height-5 || temp.y < 0){
+                        temp.moveY = - temp.moveY;
+                    }
+
+                    ctx.fillStyle = 'rgb(84,126,189)';
+                    ctx.beginPath();
+                    ctx.arc(temp.x, temp.y, 5, 0, 2*Math.PI);
+                    ctx.fill();
+                    if(play){
+                        setTimeout(animate,33);
+                    }
+                }
+                animate();
+            }
+        });
+    </script>
+</body>
+</html>

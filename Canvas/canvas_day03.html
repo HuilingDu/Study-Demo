@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            bottom: 0;
+        }
+    </style>
+    <script src="../js-common/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+
+    <script type="text/javascript">
+        $(function(){
+            var $canvas = $('canvas');
+            var cvs = $canvas.get(0);
+            if(cvs.getContext){
+                var ctx = cvs.getContext('2d');
+
+                var cvs_width = $canvas.width(),
+                    cvs_height = $canvas.height(),
+
+                    play = true,
+                    $start = $('#start'),
+                    $stop = $('#stop');
+
+                var x = 0,
+                    shape = function(x,y){
+                        this.x = x;
+                        this.y = y;
+                    };
+                var shapes = new Array();
+                shapes[0] = new shape(50,50);
+                shapes[1] = new shape(100,100);
+                shapes[2] = new shape(150,150);
+
+                $start.hide();
+                $start.click(function(){
+                    $(this).hide();
+                    $stop.show();
+                    play = true;
+                    animate();
+                });
+                $stop.click(function(){
+                    $(this).hide();
+                    $start.show();
+                    play = false;
+                });
+
+                function animate(){
+                    ctx.clearRect(0,0,cvs_width,cvs_height);
+                    x++;
+                    ctx.fillStyle = 'rgb(255,0,0)';
+                    ctx.fillRect(x,10,20,20);
+
+                    var shapesLen = shapes.length;
+                    for(var i = 0;i < shapesLen;i++){
+                        var tempShape = shapes[i];
+                        tempShape.x += Math.random() * 4 - 2;   //产生-2到2之间的随机数
+                        tempShape.y += Math.random() * 4 - 2;
+                        ctx.fillRect(tempShape.x,tempShape.y,10,10);
+                    }
+
+                    if(play){
+                        setTimeout(animate,33);
+                    }
+                }
+                animate();
+            }
+        });
+    </script>
+</body>
+</html>
