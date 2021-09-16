@@ -1,0 +1,13 @@
+{
+	"returnCode": "000000",
+	"returnMsg": "请求成功",
+	"result": {
+		"enName": "enName",
+		"zhCname": "张某某",
+		"phoneNo": "13312345678",
+		"idNo": "1",
+		"orgCname": "组织名",
+		"channelCode": "CMM000001",
+		"webElements": []
+	}
+}
