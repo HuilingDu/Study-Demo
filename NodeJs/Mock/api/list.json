@@ -1,0 +1,16 @@
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": [
+		{
+			"id": 6,
+			"type": "DEVTOOL",
+			"name": "GitLab",
+			"icon": "https://xxx.png",
+			"remark": "GitLab",
+			"order": 2,
+			"state": null,
+			"open": null
+		}
+	]
+}
