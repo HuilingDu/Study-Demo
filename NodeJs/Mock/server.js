@@ -1,4 +1,7 @@
 const setOnline = require('./config');
+const fs = require('fs');
+const path = require('path');
+
 // 这里使用了express, 执行npm i express 或者 cnpm i express安装依赖
 var express = require('express');
 var app = express();
@@ -26,6 +29,23 @@ setOnline.forEach((m) => {
 		res.json(require(`./api/${m.name}.${m.fileType || 'json'}`));  // 返回处理结果
 	});
 });
+
+app.get('/api/download', (req, res) => {
+	let _path = path.resolve(__dirname, 'file/pic.png');
+	let stats = fs.statSync(_path);
+	if (stats.isFile()) {
+		res.set({
+			'Content-Type': 'application/octet-stream',
+			// 'Content-Type': 'application/x-download;charset=UTF-8',
+			'Access-Control-Allow-Credentials': true,
+			'Content-Disposition': 'attachment; filename=' + 'pic.png',
+			'Content-Length': stats.size
+		});
+		fs.createReadStream(_path).pipe(res);
+	} else {
+		res.end('没有该文件！')
+	}
+})
 
 // 监听端口
 app.listen('8801', function () {
