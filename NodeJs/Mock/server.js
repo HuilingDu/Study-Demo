@@ -27,6 +27,7 @@ setOnline.forEach((m) => {
 	app[m.type](`/api${m.url}`, m.callback ? m.callback : (req, res) => {
 		res.status(200);
 		res.json(require(`./api/${m.name}.${m.fileType || 'json'}`));  // 返回处理结果
+		res.end();
 	});
 });
 

@@ -7,9 +7,10 @@ const setOnline = [{
 	type: 'post',
 	url: '/uc/v1/process/listProcessInstance'
 }, {
-	name: 'list',
+	name: 'mockjs',
 	type: 'get',
-	url: '/uc/v1/app/list'
+	url: '/uc/v1/app/list',
+	fileType: 'js'
 }, {
 	name: 'getDepartmentUserList',
 	type: 'get',
