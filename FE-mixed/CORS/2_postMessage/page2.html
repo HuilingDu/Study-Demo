@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<div id="recMessage">
+		Hello World!
+	</div>
+
+	<button onclick="postParent()">给父窗口postMessage</button>
+	<script>
+		// window.onload = function() {
+		// 	var messageEle = document.getElementById('recMessage');
+		// 	window.addEventListener('message', function (e) {  // 监听 message 事件
+		// 		console.log(e.origin);
+		// 		if (e.origin !== "http://127.0.0.1:5500") {  // 验证消息来源地址
+		// 			return;
+		// 		}
+		// 		messageEle.innerHTML = "从"+ e.origin +"收到消息： " + e.data;
+		// 	});
+		// }
+
+		window.onload = function() {
+			var messageEle = document.getElementById('recMessage');
+			window.addEventListener('message', function(e) {
+				localStorage.setItem('data', e.data);
+				// messageEle.innerHTML = "从"+ e.origin +"收到消息： " + e.data;
+				alert(e.data);
+			});
+		}
+
+		const postParent = () => {
+			window.opener.postMessage('Nice to see you', 'http://127.0.0.1:5500/2_postMessage/page1.html');
+		}
+	</script>
+</body>
+</html>

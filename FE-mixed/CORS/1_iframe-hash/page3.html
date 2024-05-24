@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	这里是Page3
+
+	<a href="/page2.html">page3-2</a>
+	<a href="/page3.html">page3-3</a>
+
+
+	<script>
+		// alert('cookie'+document.cookie);
+		window.addEventListener('hashchange', checkMessage);
+
+		function checkMessage() {
+			console.log('page3')
+			var message = (window.location.hash).split('#')[1];
+			if (message === "page2") {
+				window.location.href = "/page2.html";
+			} else {
+				window.location.href = "/page3.html";
+			}
+		}
+	</script>
+</body>
+</html>

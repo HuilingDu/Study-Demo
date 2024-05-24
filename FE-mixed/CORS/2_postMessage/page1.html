@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>postMessage</title>
+</head>
+<body>
+	<div>
+		<input id="text" type="text" value="Runoob" />
+		<button id="sendMessage" style="background: url('https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png');">发送消息</button>
+		<img src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" alt="">
+	</div>
+	<iframe loading="lazy" id="receiver" src="http://127.0.0.1:5501/page2.html" width="300" height="360">
+		<p>你的浏览器不支持 iframe。</p>
+	</iframe>
+	<script>
+		// window.onload = function() {
+		// 	var receiver = document.getElementById('receiver').contentWindow;
+		// 	var btn = document.getElementById('sendMessage');
+		// 	btn.addEventListener('click', function (e) {
+		// 		e.preventDefault();
+		// 		var val = document.getElementById('text').value;
+		// 		receiver.postMessage("Hello "+val+"！", "http://127.0.0.1:5501");
+		// 	});
+		// }
+
+		// window.onload = function() {
+			var btn = document.getElementById('sendMessage');
+			btn.addEventListener('click', () => {
+				var val = document.getElementById('text').value;
+				console.log(window.opener)
+				var popup = window.open('http://127.0.0.1:5501/page2.html', 'title');
+				popup.postMessage('Hello World!' + val, 'http://127.0.0.1:5501/page2.html');
+			})
+		// }
+
+		window.addEventListener('message', function(e) {
+			console.log(e.data);
+		},false);
+	</script>
+</body>
+</html>

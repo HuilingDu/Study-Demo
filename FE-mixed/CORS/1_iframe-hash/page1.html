@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Page1</title>
+</head>
+
+<body>
+	这里是page1
+
+	<button onclick="getIframe('page2')">打开page2</button>
+	<button onclick="getIframe('page3')">打开page3</button>
+
+
+	<iframe id="myIFrame" src="http://127.0.0.1:5502/page2.html" title="iframe跨域" frameborder="0">这是iframe</iframe>
+
+	<script>
+		console.log(parent.location.href)
+		const getIframe = (page) => {
+			// const originURL = `http://127.0.0.1:5502/${page}.html`;
+			// var src = originURL + '#' + page;
+			// document.getElementById('myIFrame').src = originURL;
+
+			const originURL = `http://127.0.0.1:5502/page2.html`;
+			var src = originURL + '#' + page;
+			document.getElementById('myIFrame').src = src;
+		}
+	</script>
+</body>
+
+</html>
