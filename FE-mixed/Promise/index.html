@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="index.js"></script>
+
+	<script>
+		let p1 = new MyPromise((resolve, reject) => {
+			resolve('success');
+		});
+		console.log(p1);
+
+		let p2 = new MyPromise((resolve, reject) => {
+			reject('false');
+		});
+		console.log(p2);
+
+		let p3 = new MyPromise((resolve, reject) => {
+			resolve('已经成功了');
+			reject('不能执行到这里');
+		});
+		console.log(p3);
+
+		let p4 = new MyPromise((resolve, reject) => {
+			throw ('throw 方法相当于执行 reject');
+		});
+		console.log(p4);
+
+		let p5 = new MyPromise((resolve, reject) => {
+			resolve('success');
+		}).then(res => console.log(res), err => console.log(err));
+
+		let p6 = new MyPromise((resolve, reject) => {
+			reject('error');
+		}).then(res => console.log(res), err => console.log(err));
+
+		let p7 = new MyPromise((resolve, reject) => {
+			resolve('success');
+		}).then(2, err => console.log(err));
+
+		// let p8 = new MyPromise((resolve, reject) => {
+		// 	reject('err');
+		// }).then(2, 'this is an error!');
+
+		let p9 = new MyPromise((resolve, reject) => {
+			setTimeout(() => {
+				resolve('success');
+			}, 1000);
+		}).then(
+			res => console.log('1秒后执行then，前面代码有错误会影响这里执行，所以先把p8注释掉', res),
+			err => console.log(err)
+		);
+
+
+
+		// let p10 = new MyPromise((resolve, reject) => {
+		// 	resolve('success');
+		// }).then(
+		// 	res => 2 * res,
+		// 	err => console.log(err)
+		// ).then(
+		// 	res => console.log('p10', res),
+		// 	err => console.log(err)
+		// );
+
+	</script>
+</head>
+
+<body>
+	<h3>一、resolve 和 reject 实现</h3>
+	<div>
+		<pre>
+			1. 执行了resolve，Promise状态会变成fulfilled；
+	
+			let p1 = new MyPromise((resolve, reject) => {
+				resolve('success');
+			});
+			console.log(p1);
+		</pre>
+		<pre>
+			2. 执行了reject，Promise状态会变成rejected；
+	
+			let p2 = new MyPromise((resolve, reject) => {
+				reject('false');
+			});
+			console.log(p2);
+		</pre>
+		<pre>
+			3. Promise状态不可逆，第一次成功就永久为fulfilled，第一次失败就永远状态为rejected；
+	
+			let p3 = new MyPromise((resolve, reject) => {
+				resolve('已经成功了');
+				reject('不能执行到这里');
+			});
+			console.log(p3);
+		</pre>
+		<pre>
+			4. Promise中有throw的话，就相当于执行了reject；
+	
+			let p4 = new MyPromise((resolve, reject) => {
+				throw ('throw 方法相当于执行 reject');
+			});
+			console.log(p4);
+		</pre>
+	</div>
+
+	<h3>二、then 实现</h3>
+	<div>
+		<pre>
+			1. then接收两个回调，一个是成功回调，一个是失败回调；
+	
+			let p5 = new MyPromise((resolve, reject) => {
+				resolve('success');
+			}).then(res => console.log(res), err => console.log(err));
+	
+			let p6 = new MyPromise((resolve, reject) => {
+				reject('error');
+			}).then(res => console.log(res), err => console.log(err));
+		</pre>
+		<pre>
+			2. 当 then 参数不是函数时，添加判断避免代码报错
+	
+			let p7 = new MyPromise((resolve, reject) => {
+				resolve('success');
+			}).then(2, err => console.log(err));
+	
+			let p8 = new MyPromise((resolve, reject) => {
+				reject('success');
+			}).then(2, 'this is an error!');
+		</pre>
+	</div>
+
+	<h3>三、Promise 是异步的，需要等待结果返回再执行 then</h3>
+	<div>
+		<pre>
+			let p9 = new MyPromise((resolve, reject) => {
+				setTimeout(() => {
+					resolve('success');
+				},1000);
+			}).then(res => console.log('1秒后执行then', res), err => console.log(err));
+		</pre>
+	</div>
+
+	<script>
+		// let p = new Promise((resolve, reject) => {
+		// 	reject('err');
+		// }).then(2, 'this is an error!');
+		// console.log('Promise', p);
+
+	</script>
+</body>
+
+</html>

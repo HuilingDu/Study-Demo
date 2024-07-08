@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="index.js"></script>
+	<!-- <script>
+
+		let p = new MyPromise((resolve, reject) => {
+			resolve(12)
+		}).then(
+			res => {
+				return new MyPromise((resolve) => {
+					resolve(1)
+				})
+			}
+		).then(
+			res => {
+				console.log(res);
+				// return 2 * res;
+			}
+		);
+
+		let pp = new Promise((resolve, reject) => {
+			resolve(12)
+		}).then(
+			res => {
+				return new MyPromise((resolve) => {
+					resolve(1)
+				})
+			}
+		).then(
+			res => {
+				console.log(res);
+				// return 2 * res;
+			}
+		);
+	</script> -->
+	<script>
+		let p1 = new MyPromise((resolve, reject) => {
+			setTimeout(() => {
+				resolve('开始')
+			}, 1000);
+
+		}).then(
+			res => {
+				console.log('1', res);
+				return new MyPromise((resolve, reject) => {
+					resolve(res + '----1');
+				})
+			}
+		).then(
+			res => {
+				console.log(2, res);
+				return new MyPromise((resolve, reject) => {
+					reject(res + '----2');
+				})
+			}
+		).then(
+			res => {
+				// console.log(123)
+			},
+			err => {
+				console.log(err, 3);
+				return 3;
+			}
+		).then(
+			res => {
+				// console.log(123)
+			},
+			err => {
+				console.log(err, 4);
+			}
+		);
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>
