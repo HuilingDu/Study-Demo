@@ -74,6 +74,18 @@ class MyPromise {
 
 		return thenPromise;
 
+		/* 资料手写方法中 判断 x === thenPromise && x 的原因
+		https://baijiahao.baidu.com/s?id=1727800187996821734&wfr=spider&for=pc
+		
+		let p = new Promise(resolve => {
+			resolve(0);
+		});
+		var p2 = p.then(data => {
+			// 循环引用，自己等待自己完成，一辈子完不成
+			return p2;
+		}) 
+		*/
+
 		// if (this.PromiseStatus === "fulfilled") {
 		// 	onFulfilled(this.PromiseResult);
 		// } else if (this.PromiseStatus === "rejected") {
