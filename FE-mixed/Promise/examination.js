@@ -44,7 +44,7 @@ class Scheduler {
 
 		/* 
 			若队列中有值，将其resolve弹出，并执行
-				以便阻塞的任务，可以正常执行
+			以便阻塞的任务，可以正常执行
 		*/
 		if (this.taskQueue.length > 0) {
 			this.taskQueue.shift()();
