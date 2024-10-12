@@ -3,10 +3,9 @@
 		"@commitlint/config-conventional"
 	],
 	"rules": {
-		"body-max-length": [
-			1,
-			"always",
-			2
+		"subject-empty": [
+			2,
+			"never"
 		]
 	}
 }
